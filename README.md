@@ -1,6 +1,6 @@
 # Analyticky
 
-This humble application provides an API that receives product analytics events and inserts them on elasticsearch to be qeried on Kibana.
+This humble application provides an API that receives product analytics events and inserts them on elasticsearch to be queried on Kibana.
 
 ## Missing Features
 - Identify event location from request IP
