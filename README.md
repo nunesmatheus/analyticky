@@ -1,24 +1,16 @@
-# README
+# Analyticky
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This humble application provides an API that receives product analytics events and inserts them on elasticsearch to be qeried on Kibana.
 
-Things you may want to cover:
+## Missing Features
+- Identify event location from request IP
+- Set geospacial data from event location
 
-* Ruby version
+## Setup
 
-* System dependencies
+``` bash
+docker-compose up
+```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Sending events
+TBD
