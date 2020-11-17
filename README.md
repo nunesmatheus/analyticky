@@ -5,6 +5,7 @@ This humble application provides an API that receives product analytics events a
 ## Missing Features
 - Identify event location from request IP
 - Set geospacial data from event location
+- Add events on background with Sidekiq
 
 ## Setup
 
