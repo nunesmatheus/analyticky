@@ -5,7 +5,12 @@ This humble application provides an API that receives product analytics events a
 ## Missing Features
 - Identify event location from request IP
 - Set geospacial data from event location
+- Cache ip location to prevent additional calls to geolocation API (feature flag)
+- Add swagger docs
+- API to fetch unique ID
+- API to alias anonymous user with user_id?
 - Add events on background with Sidekiq
+- User profiles?
 
 ## Setup
 
