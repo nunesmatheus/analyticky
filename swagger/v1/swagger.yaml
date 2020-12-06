@@ -28,5 +28,14 @@ paths:
                   type: string
               required:
               - name
+  "/api/v1/tokens":
+    post:
+      summary: Get unique token
+      tags:
+      - Tokens
+      responses:
+        '200':
+          description: returns unique token
+          content: {}
 servers:
-- url: http://localhost:3000
+- url: "/"

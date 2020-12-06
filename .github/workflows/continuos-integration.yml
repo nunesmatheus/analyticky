@@ -4,7 +4,7 @@ on: push
 
 jobs:
   tests:
-    name: 'Run RSpec tests'
+    name: RSpec tests
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -12,8 +12,8 @@ jobs:
     - name: Setup application
       run: docker-compose build
 
-    - name: Start elasticsearch
-      run: docker-compose run --rm web echo "Starting elasticsearch..."
+    - name: Setup database
+      run: docker-compose run --rm web rails db:create db:schema:load db:test:prepare
 
     - name: Wait for elasticsearch
       run: |
@@ -27,7 +27,7 @@ jobs:
       run: docker-compose run --rm web rspec
 
   rubocop:
-    name: 'Run RuboCop Linter'
+    name: RuboCop Linter
     runs-on: ubuntu-latest
     steps:
     - name: RuboCop Linter Action

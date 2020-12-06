@@ -15,8 +15,10 @@ services:
       - RAILS_ENV=development
     links:
       - elasticsearch
+      - db
     depends_on:
       - elasticsearch
+      - db
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
@@ -35,3 +37,10 @@ services:
       - ELASTICSEARCH_PORT=9200
     depends_on:
       - elasticsearch
+
+  db:
+    image: postgres:12.3
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports: ["5432:5432"]
