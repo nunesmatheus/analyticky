@@ -1,13 +1,31 @@
 version: '3'
 
 services:
+  web:
+    container_name: analyticky-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/analyticky/
+    ports: ["3000:3000"]
+    environment:
+      - RAILS_ENV=development
+    links:
+      - elasticsearch
+    depends_on:
+      - elasticsearch
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
     environment:
       - discovery.type=single-node
       - network.host=0.0.0.0
     ports:
-      - "9202:9200"
+      - "9200:9200"
+
   kibana:
     image: docker.elastic.co/kibana/kibana:7.9.3
     ports:
