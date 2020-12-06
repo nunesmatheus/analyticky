@@ -1,0 +1,32 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/events":
+    post:
+      summary: Creates event
+      tags:
+      - Events
+      parameters: []
+      responses:
+        '201':
+          description: event created
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                properties:
+                  type: object
+                ocurred_at:
+                  type: string
+              required:
+              - name
+servers:
+- url: http://localhost:3000
