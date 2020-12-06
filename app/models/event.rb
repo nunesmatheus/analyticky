@@ -4,16 +4,30 @@ class Event
   include ActiveModel::Model
   include ActiveModel::Validations
 
+  extend ActiveModel::Callbacks
+
   ATTRIBUTES = %i[name properties ocurred_at].freeze
   attr_accessor(*ATTRIBUTES)
 
   validates :name, presence: true
 
-  # TODO: set ocurred_at before_action
+  define_model_callbacks :create
 
-  def initialize(attr = {})
-    attr.each do |k, v|
+  before_create :set_ocurred_at
+
+  def initialize(attrs = {})
+    attrs.each do |k, v|
       send("#{k}=", v) if ATTRIBUTES.include?(k.to_sym)
+    end
+  end
+
+  def self.create(attrs = {})
+    new(attrs).create
+  end
+
+  def create(attrs = {})
+    run_callbacks :create do
+      EventRepository.new.save(self)
     end
   end
 
@@ -24,4 +38,10 @@ class Event
   end
 
   alias to_hash attributes
+
+  private
+
+  def set_ocurred_at
+    self.ocurred_at ||= Time.current
+  end
 end
