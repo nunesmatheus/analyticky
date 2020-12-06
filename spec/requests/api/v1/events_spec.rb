@@ -7,7 +7,6 @@ RSpec.describe 'api/v1/events', type: :request, elasticsearch: true do
     post 'Creates event' do
       tags 'Events'
       consumes 'application/json'
-      consumes 'application/json'
       parameter name: :payload, in: :body, schema: {
         type: :object,
         properties: {
