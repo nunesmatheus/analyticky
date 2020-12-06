@@ -12,8 +12,8 @@ jobs:
     - name: Setup application
       run: docker-compose build
 
-    - name: Start elasticsearch
-      run: docker-compose run --rm web echo "Starting elasticsearch..."
+    - name: Setup database
+      run: docker-compose run --rm web rails db:create db:schema:load db:test:prepare
 
     - name: Wait for elasticsearch
       run: |

@@ -1,7 +1,7 @@
 FROM ruby:2.7.2
 
 RUN apt-get update && apt-get install -y curl software-properties-common vim locales
-RUN apt-get install -y libc-ares2 --no-install-recommends
+RUN apt-get install -y libc-ares2 postgresql-client --no-install-recommends
 
 RUN mkdir -p /analyticky
 WORKDIR /analyticky/
