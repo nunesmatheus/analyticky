@@ -1,7 +1,5 @@
 FROM ruby:2.7.2
 
-ARG CI_BUILD
-
 RUN apt-get update && apt-get install -y curl software-properties-common vim locales
 RUN apt-get install -y libc-ares2 --no-install-recommends
 
