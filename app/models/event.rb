@@ -26,7 +26,7 @@ class Event
     new(attrs).create
   end
 
-  def create(attrs = {})
+  def create(_attrs = {})
     run_callbacks :create do
       EventRepository.new.save(self)
     end

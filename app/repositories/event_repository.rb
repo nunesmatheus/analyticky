@@ -6,7 +6,7 @@ class EventRepository
   include Elasticsearch::Persistence::Repository
   include Elasticsearch::Persistence::Repository::DSL
 
-  index_name "#{Rails.env.production? ? '' : Rails.env + '_'}events_#{Time.zone.today}"
+  index_name "#{Rails.env.production? ? '' : "#{Rails.env}_"}events_#{Time.zone.today}"
 
   klass Event
 
