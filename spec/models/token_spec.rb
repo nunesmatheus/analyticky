@@ -9,7 +9,6 @@ RSpec.describe Token, type: :model do
     let(:crypt) { ActiveSupport::MessageEncryptor.new(secret) }
 
     it 'returns encrypted ID' do
-      encrypted_id = crypt.encrypt_and_sign(token.id)
       expect(token.value).to be_present
       expect(crypt.decrypt_and_verify(token.value)).to eq token.id
     end
