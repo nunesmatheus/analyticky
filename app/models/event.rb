@@ -14,6 +14,7 @@ class Event
   define_model_callbacks :create
 
   before_create :set_ocurred_at
+  before_create :set_properties
 
   def initialize(attrs = {})
     attrs.each do |k, v|
@@ -43,5 +44,10 @@ class Event
 
   def set_ocurred_at
     self.ocurred_at ||= Time.current
+  end
+
+  def set_properties
+    self.properties ||= {}
+    self.properties = self.properties.to_hash
   end
 end

@@ -2,10 +2,11 @@
 
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/events', type: :request do
-  path '/events' do
+RSpec.describe 'api/v1/events', type: :request, elasticsearch: true do
+  path '/api/v1/events' do
     post 'Creates event' do
       tags 'Events'
+      consumes 'application/json'
       consumes 'application/json'
       parameter name: :payload, in: :body, schema: {
         type: :object,
@@ -18,19 +19,24 @@ RSpec.describe 'api/v1/events', type: :request do
       }
 
       response '201', 'event created' do
+        let(:name) { Faker::Lorem.sentence[0..-2] }
         let(:payload) do
           {
-            name: 'My Event', properties: {
+            name: name, properties: {
               my_property: 3, another_property: true
             }
           }
         end
 
         run_test! do
-          expect(Event.count).to eq 1
-          expect(Event.first.name).to eq 'My Event'
-          expect(Event.first.properties['my_property']).to eq 3
-          expect(Event.first.properties['another_property']).to eq true
+          repository = EventRepository.new
+          repository.refresh_index!
+          events = repository.search(query: { match: { name: name } })
+          expect(events.results.size).to eq 1
+          event = events.first
+          expect(event.name).to eq name
+          expect(event.properties['my_property']).to eq 3
+          expect(event.properties['another_property']).to eq true
         end
       end
     end

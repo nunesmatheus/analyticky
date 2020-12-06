@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class EventsController
+    class EventsController < ApplicationController
       def create
         Event.create(event_params)
         render json: {}, status: :created
