@@ -39,6 +39,12 @@ group :development, :test do
 
   # API documentation from tests
   gem 'rswag-specs', '~> 2.3.1'
+
+  # Additional matches for rspec
+  gem 'shoulda-matchers', '~> 4.4.1'
+
+  # Capture test coverage
+  gem 'simplecov', '~> 0.12.0'
 end
 
 group :development do
