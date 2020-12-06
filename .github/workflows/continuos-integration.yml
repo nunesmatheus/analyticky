@@ -1,0 +1,36 @@
+name: Continuous integration
+
+on: push
+
+jobs:
+  tests:
+    name: 'Run RSpec tests'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup application
+      run: docker-compose build
+
+    - name: Start elasticsearch
+      run: docker-compose run --rm web echo "Starting elasticsearch..."
+
+    - name: Wait for elasticsearch
+      run: |
+        until curl http://localhost:9200 >/dev/null 2>&1
+        do
+          sleep 1
+          echo "Elasticsearch is not ready yet..."
+        done
+
+    - name: Run tests
+      run: docker-compose run --rm web rspec
+
+  rubocop:
+    name: 'Run RuboCop Linter'
+    runs-on: ubuntu-latest
+    steps:
+    - name: RuboCop Linter Action
+      uses: andrewmcodes/rubocop-linter-action@v3.3.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
