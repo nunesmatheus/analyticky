@@ -12,6 +12,14 @@ jobs:
     - name: Setup application
       run: docker-compose build
 
+    - name: Wait for elasticsearch
+      run: |
+        until curl http://localhost:9200 >/dev/null 2>&1
+        do
+          sleep 1
+          echo "Elasticsearch is not ready yet..."
+        done
+
     - name: Run tests
       run: docker-compose run --rm web rspec
 
