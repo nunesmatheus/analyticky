@@ -16,7 +16,7 @@ class EventRepository
 
   settings index: { number_of_shards: 1 } do
     mapping dynamic: false do
-      indexes :name
+      indexes :name, type: 'keyword'
       indexes :properties, type: 'object'
       indexes :ocurred_at, type: 'date'
     end
