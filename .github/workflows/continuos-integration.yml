@@ -24,6 +24,11 @@ jobs:
     - name: Setup container
       run: docker-compose build
 
+    - name: List dependencies
+      run: |
+        docker-compose run --rm web ls /bundle
+        docker-compose run --rm web ls /bundle/vendor
+
     - name: Install dependencies
       run: docker-compose run --rm web bundle
 
