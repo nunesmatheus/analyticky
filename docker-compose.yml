@@ -10,7 +10,7 @@ services:
     stdin_open: true
     volumes:
       - .:/analyticky/
-      - bundle:/bundle
+      - ${GEMS_CACHE_DIR:-bundle}:/bundle
     ports: ["3002:3000"]
     environment:
       - RAILS_ENV=development

@@ -6,12 +6,24 @@ jobs:
   tests:
     name: RSpec tests
     runs-on: ubuntu-latest
+    env:
+      GEMS_CACHE_DIR: /tmp/cache/bundle
+      GEMS_CACHE_KEY: cache-gems
     steps:
     - uses: actions/checkout@v2
 
     - run: docker-compose pull
 
     - uses: satackey/action-docker-layer-caching@v0.0.10
+
+    - name: Cache bundle gems
+      id: cache-bundle-gems
+      uses: actions/cache@v1
+      with:
+        path: ${{ env.GEMS_CACHE_DIR }}
+        key: ${{ runner.os }}-${{ env.GEMS_CACHE_KEY }}-${{ hashFiles('Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-${{ env.GEMS_CACHE_KEY }}
 
     - name: Setup application
       run: docker-compose build
