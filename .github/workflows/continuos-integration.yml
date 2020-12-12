@@ -17,7 +17,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: ${{ env.GEMS_CACHE_DIR }}
-        key: ${{ runner.os }}-${{ env.GEMS_CACHE_KEY }}-${{ hashFiles('Gemfile.lock') }}
+        key: ${{ runner.os }}-2.7.2-${{ env.GEMS_CACHE_KEY }}-${{ hashFiles('Gemfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-${{ env.GEMS_CACHE_KEY }}
 
