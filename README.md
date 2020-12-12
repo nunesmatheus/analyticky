@@ -15,6 +15,9 @@ This humble application provides an API that receives product analytics events a
 ## Setup
 
 ``` bash
+docker-compose build
+docker-compose run --rm bundle exec web bundle
+docker-compose run --rm bundle exec web rails db:setup
 docker-compose up
 ```
 
