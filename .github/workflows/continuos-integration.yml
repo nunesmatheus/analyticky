@@ -17,7 +17,7 @@ jobs:
 
     - name: Wait for elasticsearch
       run: |
-        until curl http://localhost:9200 >/dev/null 2>&1
+        until curl http://localhost:9201 >/dev/null 2>&1
         do
           sleep 1
           echo "Elasticsearch is not ready yet..."
