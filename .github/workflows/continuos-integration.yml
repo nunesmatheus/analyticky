@@ -21,6 +21,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-${{ env.GEMS_CACHE_KEY }}
 
+    - run: docker-compose pull
+
+    - uses: satackey/action-docker-layer-caching@v0.0.10
+
     - name: Setup container
       run: docker-compose build
 
