@@ -21,6 +21,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-${{ env.GEMS_CACHE_KEY }}
 
+    - name: List cache
+      run: ls /tmp/cache/bundle
+
     - run: docker-compose pull
 
     - name: Setup container
