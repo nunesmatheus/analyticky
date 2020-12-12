@@ -45,7 +45,7 @@ jobs:
 
     - name: Grab dependencies
       run: |
-        mkdir -p /tmp/cache/bundle
+        sudo mkdir -p /tmp/cache/bundle
         docker cp "$(docker ps -a | grep web | awk '{print $1}' | sed -n 1,1p)":/bundle /tmp/cache/bundle
 
   rubocop:
