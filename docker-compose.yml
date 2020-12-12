@@ -10,9 +10,11 @@ services:
     stdin_open: true
     volumes:
       - .:/analyticky/
+      - bundle:/bundle
     ports: ["3002:3000"]
     environment:
       - RAILS_ENV=development
+      - BUNDLE_PATH=/bundle/vendor
     links:
       - elasticsearch
       - db
@@ -44,3 +46,9 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
     ports: ["5433:5432"]
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  bundle:
+  postgres-data:
