@@ -43,9 +43,6 @@ jobs:
     - name: Run tests
       run: docker-compose run web bundle exec rspec
 
-    - name: List containers
-      run: docker ps -a
-
     - name: Zip dependencies
       run: |
         docker cp "$(docker ps -a | grep web | awk '{print $1}' | sed -n 1,1p)":/bundle .
