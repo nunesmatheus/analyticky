@@ -45,7 +45,7 @@ jobs:
 
     - name: Zip dependencies
       run: |
-        docker cp "$(docker ps -a | grep web | awk '{print $1}' | sed -n 1,1p)":/bundle .
+        docker cp "$(docker ps -a | grep web | awk '{print $1}' | sed -n 1,1p)":/tmp/cache/bundle .
 
   rubocop:
     name: RuboCop Linter
