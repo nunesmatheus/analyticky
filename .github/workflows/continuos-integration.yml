@@ -6,14 +6,31 @@ jobs:
   tests:
     name: RSpec tests
     runs-on: ubuntu-latest
+    env:
+      GEMS_CACHE_DIR: /tmp/cache/bundle
+      GEMS_CACHE_KEY: cache-gems
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup application
+    - name: Cache bundle gems
+      id: cache-bundle-gems
+      uses: actions/cache@v1
+      with:
+        path: ${{ env.GEMS_CACHE_DIR }}
+        key: ${{ runner.os }}-2.7.2-${{ env.GEMS_CACHE_KEY }}-${{ hashFiles('Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-${{ env.GEMS_CACHE_KEY }}
+
+    - run: docker-compose pull
+
+    - name: Setup container
       run: docker-compose build
 
+    - name: Install dependencies
+      run: docker-compose run --rm web bundle
+
     - name: Setup database
-      run: docker-compose run --rm web rails db:create db:schema:load db:test:prepare
+      run: docker-compose run --rm web bundle exec rails db:create db:schema:load db:test:prepare
 
     - name: Wait for elasticsearch
       run: |
@@ -24,7 +41,11 @@ jobs:
         done
 
     - name: Run tests
-      run: docker-compose run --rm web rspec
+      run: docker-compose run web bundle exec rspec
+
+    - name: Grab dependencies
+      run: |
+        docker cp "$(docker ps -a | grep web | awk '{print $1}' | sed -n 1,1p)":/bundle /tmp/cache/bundle
 
   rubocop:
     name: RuboCop Linter
