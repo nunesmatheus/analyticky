@@ -14,6 +14,7 @@ services:
     ports: ["3002:3000"]
     environment:
       - RAILS_ENV=development
+      - BUNDLE_PATH=/bundle/vendor
     links:
       - elasticsearch
       - db

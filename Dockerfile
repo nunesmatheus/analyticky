@@ -10,8 +10,6 @@ COPY . /analyticky/
 
 RUN gem install bundler:2.1.4
 
-RUN bundle install -j "$(getconf _NPROCESSORS_ONLN)" --retry 3
-
 EXPOSE 3000
 
 # Extra tools:

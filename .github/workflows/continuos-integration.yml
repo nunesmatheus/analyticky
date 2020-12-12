@@ -12,8 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - run: docker-compose pull
-
     - name: Cache bundle gems
       id: cache-bundle-gems
       uses: actions/cache@v1
@@ -23,8 +21,11 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-${{ env.GEMS_CACHE_KEY }}
 
-    - name: Setup application
+    - name: Setup container
       run: docker-compose build
+
+    - name: Install dependencies
+      run: docker-compose run --rm web bundle
 
     - name: Setup database
       run: docker-compose run --rm web rails db:create db:schema:load db:test:prepare
