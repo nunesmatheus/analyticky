@@ -1,0 +1,12 @@
+{
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [
+    "heroku-postgresql:hobby-dev",
+    "bonsai:sandbox-6"
+  ]
+}
