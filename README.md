@@ -22,4 +22,11 @@ docker-compose up
 ```
 
 ## Sending events
+
 TBD
+
+## Deploy
+
+Deploy to Heroku with one click:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
