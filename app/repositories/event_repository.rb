@@ -11,7 +11,7 @@ class EventRepository
   klass Event
 
   client Elasticsearch::Client.new(
-    url: ENV['ELASTICSEARCH_URL'] || 'http://elasticsearch:9200'
+    url: ENV['ELASTICSEARCH_URL'] || ENV['BONSAI_URL'] || 'http://elasticsearch:9200'
   )
 
   settings index: { number_of_shards: 1 } do
