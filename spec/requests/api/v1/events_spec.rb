@@ -16,6 +16,7 @@ RSpec.describe 'api/v1/events', type: :request, elasticsearch: true do
         },
         required: %w[name]
       }
+      parameter name: 'X-User-Id', in: :header, type: :string
 
       response '201', 'event created' do
         let(:name) { Faker::Lorem.sentence[0..-2] }
@@ -26,6 +27,8 @@ RSpec.describe 'api/v1/events', type: :request, elasticsearch: true do
             }
           }
         end
+        let(:user_id) { 'TYf8pA==--i4RD32b0fffPJMjn--TWHlByYAnRUMhxeauJLj/g==' }
+        let(:'X-User-Id') { user_id }
 
         run_test! do
           repository = EventRepository.new
@@ -36,6 +39,7 @@ RSpec.describe 'api/v1/events', type: :request, elasticsearch: true do
           expect(event.name).to eq name
           expect(event.properties['my_property']).to eq 3
           expect(event.properties['another_property']).to eq true
+          expect(event.user_id).to eq user_id
         end
       end
     end

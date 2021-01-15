@@ -19,6 +19,7 @@ class EventRepository
       indexes :name, type: 'keyword'
       indexes :properties, type: 'object'
       indexes :ocurred_at, type: 'date'
+      indexes :user_id, type: 'keyword'
     end
   end
 end
