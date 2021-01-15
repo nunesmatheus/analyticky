@@ -6,7 +6,7 @@ class Event
 
   extend ActiveModel::Callbacks
 
-  ATTRIBUTES = %i[name properties ocurred_at].freeze
+  ATTRIBUTES = %i[name properties ocurred_at user_id].freeze
   attr_accessor(*ATTRIBUTES)
 
   validates :name, presence: true
